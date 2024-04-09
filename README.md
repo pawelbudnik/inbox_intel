@@ -41,7 +41,7 @@ Extract the key info from emails quickly
 
 ### Installation
 
-1. [Download the zipped folder](https://github.com/pawelbudnik/youtube_soundboard/archive/refs/heads/master.zip) or Clone the repo
+1. [Download the zipped folder](https://github.com/pawelbudnik/inbox_intel/archive/refs/heads/master.zip) or Clone the repo
 2. Open Chrome browser.
 3. Navigate to `Settings` -> `Extensions`
 4. Switch on `Developer mode`
@@ -65,6 +65,6 @@ Extract the key info from emails quickly
 
 Paweł Budnik - pawelbudnik@gmail.com
 
-Project Link: [https://github.com/pawelbudnik/youtube_soundboard](https://github.com/pawelbudnik/youtube_soundboard)
+Project Link: [https://github.com/pawelbudnik/inbox_intel](https://github.com/pawelbudnik/inbox_intel)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
