@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('numWords4').value = 1;
                 break;
         }
+
+        document.getElementById('extractButton').click();
     }
 
     // Function to add a new search input field
@@ -125,23 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                         break;
                         case 'GYG':
-
+                            document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x26F0;&#xFE0F;');
                         break;
                     }
-                        
-                    // if (response.extractedText.split(' ')[0] == "Intersport") {
-                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace('Intersport', '&#x26F0;&#xFE0F;');
-                    // } else if(response.extractedText.split(' ')[0] == `I'm`) {
-                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace(`I'm`, '&#x2753;');
-                    // } else if(response.extractedText.split(' ')[0] == `RECOMMENDED`) {
-                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace(`RECOMMENDED`, '&#x26F0;&#xFE0F;');
-                    // } else if(response.extractedText.split(' ')[0] == `Arriving`) {
-                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace(`Arriving`, '&#x1F17F');
-                    // } else if(response.extractedText.split(' ')[0] == `Mürren`) {
-                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace(`Mürren`, '&#x26F0;&#xFE0F;');
-                    // } else {
-                    //     document.getElementById('extractedText').innerHTML = response.extractedText;
-                    // }
 
                     let extractedText = document.getElementById('extractedText').innerHTML;
 
@@ -152,9 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     textArray.splice(3, 0, `(${provider})`);
 
                     // Join the array elements back into a single string
-                    extractedText = textArray.join(' ');
-
-                    displayText = extractedText;
+                    displayText = textArray.join(' ');
 
                     console.log("innerHTML text: ", document.getElementById('extractedText').innerHTML);
                     console.log("Extracted text: ", extractedText);
