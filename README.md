@@ -7,10 +7,10 @@
     <img src="https://www.iconpacks.net/icons/2/free-youtube-logo-icon-2431-thumb.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">YouTube Soundboard</h3>
+  <h3 align="center">Inbox Intel</h3>
 
   <p align="center">
-    🎶 Listen to youtube without the videos and easily switch between different tunes with mouse / keyboard 🎶
+    Extract the key info from emails quickly
     <br />
     <br />
     <br />
@@ -35,9 +35,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Made for myself as a tool to easily play different soundtracks during study / work / board games sessions etc.
-
-NOTE: Might not work with videos that have ads at the begginning.
+Extract the key info from emails quickly
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -48,19 +46,17 @@ NOTE: Might not work with videos that have ads at the begginning.
 3. Navigate to `Settings` -> `Extensions`
 4. Switch on `Developer mode`
 5. Click on `Load unpacked` button
-6. Choose the extracted `youtube_soundboard` folder
-7. ...
-8. Profit? 
+6. Choose the extracted `inbox_intel` folder
+7. Gather that intel
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-- Store and quickly access (almost) unlimited amount of videos 
-- Assign keyboard shortcuts to quickly open the clip you want.
-- Setup multiple youtube radios and switch between them easily.
-- Play 20 different clips at the same time and annoy your family.
+- extract
+- extract
+- extract
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
