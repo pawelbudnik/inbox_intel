@@ -2,12 +2,22 @@
 <html>
 <head>
   <title>Input Intel</title>
+  <link rel="icon" type="image/png" href="images/icon-16.png">
   <script src="popup.js"></script>
 </head>
 <body>
-  <h1>Input Intel</h1>
-  <label for="keywords">Enter keywords (separated by commas):</label><br>
-  <input type="text" id="keywords" name="keywords"><br>
-  <button id="run">Run</button>
+    <h1>Text Extractor</h1>
+    <div id="searchInputs">
+      <div>
+        <label for="searchString1">Search String 1:</label>
+        <input type="text" id="searchString1" name="searchString1">
+        <label for="numWords1">Number of words to extract:</label>
+        <input type="number" id="numWords1" name="numWords1" min="1">
+      </div>
+      <!-- Add more input fields dynamically using JavaScript -->
+    </div>
+    <button id="addSearch">Add Search String</button>
+    <button id="extractButton">Extract</button>
+    <div id="extractedText"></div>
 </body>
 </html>

@@ -1,25 +1,31 @@
 {
     "manifest_version": 3,
-    "name": "Inbox Intel",
+    "name": "Input Intel",
     "version": "1.0",
-    "description": "Extract keywords from Gmail emails.",
-    "permissions": ["activeTab", "storage"],
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
+    "description": "Extract text from the currently active tab.",
+    "permissions": [
+        "activeTab"
+    ],
+    "icons": {
         "16": "images/icon-16.png",
         "64": "images/icon-64.png",
         "128": "images/icon-128.png"
-      }
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/icon-16.png",
+            "64": "images/icon-64.png",
+            "128": "images/icon-128.png"
+        }
     },
     "background": {
-      "service_worker": "background.js"
+        "service_worker": "background.js"
     },
     "content_scripts": [
-      {
-        "matches": ["*://mail.google.com/*"],
-        "js": ["content.js"]
-      }
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
     ]
-  }
-  
+}
