@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/pawelbudnik/youtube_soundboard">
+  <a href="https://github.com/pawelbudnik/inbox_intel">
     <img src="https://www.iconpacks.net/icons/2/free-youtube-logo-icon-2431-thumb.png" alt="Logo" width="80" height="80">
   </a>
 
