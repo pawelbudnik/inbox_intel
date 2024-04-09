@@ -64,6 +64,7 @@ Made to help extract useful info from emails that share similar pattern but incl
 ## Contact
 
 Paweł Budnik - pawelbudnik@gmail.com
+[https://pawelbudnik.com](pawelbudnik.com)
 
 Project Link: [https://github.com/pawelbudnik/page_intel](https://github.com/pawelbudnik/page_intel)
 
