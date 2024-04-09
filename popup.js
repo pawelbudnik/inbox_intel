@@ -37,12 +37,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const numWord = parseInt(document.getElementById(`numWords${i + 1}`).value);
             if (searchString !== '' && numWord > 0) {
                 searchStrings.push(searchString);
-                numWords.push(numWord);
+                numWords.push(numWord + 1);
             }
         }
         if (searchStrings.length > 0) {
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
                 chrome.tabs.sendMessage(tabs[0].id, {action: 'extractText', searchStrings: searchStrings, numWords: numWords}, function(response) {
+
+                    console.log("response: ", response);
+                    console.log("num words: ", numWords);
+
                     if (response && response.extractedText) {
                         document.getElementById('extractedText').textContent = response.extractedText;
                     } else {
