@@ -16,3 +16,8 @@ body {
 button {
     margin-right: 10px;
 }
+
+.alert {
+    color: green;
+    font-size: 18px;
+}
