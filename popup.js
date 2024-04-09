@@ -1,8 +1,11 @@
+let provider; // Define provider as a global variable
+
 document.addEventListener('DOMContentLoaded', function() {
     // Function to set the default values based on the button clicked
-    function setDefaultValues(provider) {
+    function setDefaultValues(providerValue) {
+        provider = providerValue; // Set the provider value
         switch(provider) {
-            case 'via':
+            case 'VIA':
                 document.getElementById('searchString1').value = 'Meeting Point:';
                 document.getElementById('numWords1').value = 1; 
                 addSearchString();
@@ -15,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('searchString4').value = 'Phone: (Alternate Phone)';
                 document.getElementById('numWords4').value = 1;
                 break;
-            case 'ts':
+            case 'TS':
                 document.getElementById('searchString1').value = 'Meeting Point:';
                 document.getElementById('numWords1').value = 1; 
                 addSearchString();
@@ -31,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('searchString5').value = 'Phone number:';
                 document.getElementById('numWords5').value = 1;
                 break;
-            case 'gyg':
+            case 'GYG':
                 document.getElementById('searchString1').value = 'Option:';
                 document.getElementById('numWords1').value = 1; 
                 addSearchString();
@@ -67,14 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('addSearch').addEventListener('click', addSearchString);
 
     // Add event listener for "VIA" button
-    document.getElementById('via').addEventListener('click', function() {
-        setDefaultValues('via');
+    document.getElementById('VIA').addEventListener('click', function() {
+        setDefaultValues('VIA');
     });
-    document.getElementById('ts').addEventListener('click', function() {
-        setDefaultValues('ts');
+    document.getElementById('TS').addEventListener('click', function() {
+        setDefaultValues('TS');
     });
-    document.getElementById('gyg').addEventListener('click', function() {
-        setDefaultValues('gyg');
+    document.getElementById('GYG').addEventListener('click', function() {
+        setDefaultValues('GYG');
     });
 
     // Event listener for removing search inputs
@@ -104,29 +107,62 @@ document.addEventListener('DOMContentLoaded', function() {
         if (searchStrings.length > 0) {
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
                 chrome.tabs.sendMessage(tabs[0].id, {action: 'extractText', searchStrings: searchStrings, numWords: numWords}, function(response) {
-
                     let displayText = '';
-                    
-                    console.log("split string: ", response.extractedText.split(' ')[0]);
 
-                    if (response.extractedText.split(' ')[0] == "Intersport") {
-                        document.getElementById('extractedText').innerHTML = response.extractedText.replace('Intersport', '&#x26F0;&#xFE0F;');
-                    } else if(response.extractedText.split(' ')[0] == `I'm`) {
-                        document.getElementById('extractedText').innerHTML = response.extractedText.replace(`I'm`, '&#x2753;');
-                    } else if(response.extractedText.split(' ')[0] == `RECOMMENDED`) {
-                        document.getElementById('extractedText').innerHTML = response.extractedText.replace(`RECOMMENDED`, '&#x26F0;&#xFE0F;');
-                    } else if(response.extractedText.split(' ')[0] == `Arriving`) {
-                        document.getElementById('extractedText').innerHTML = response.extractedText.replace(`Arriving`, '&#x1F17F');
-                    } else if(response.extractedText.split(' ')[0] == `Mürren`) {
-                        document.getElementById('extractedText').innerHTML = response.extractedText.replace(`Mürren`, '&#x26F0;&#xFE0F;');
-                    } else {
-                        document.getElementById('extractedText').innerHTML = response.extractedText;
+                    console.log("split", response.extractedText.split(' '));
+
+                    switch(provider) {
+                        case 'VIA':
+                            document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x26F0;&#xFE0F;');
+                        break;
+                        case 'TS':
+                            if(response.extractedText.split(' ')[0] == 'RECOMMENDED') {
+                                document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x26F0;&#xFE0F;');
+                            } else if(response.extractedText.split(' ')[0] == 'Arriving') {
+                                document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x1F17F;');
+                            } else {
+                                document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x2753;');
+                            }
+                        break;
+                        case 'GYG':
+
+                        break;
                     }
+                        
+                    // if (response.extractedText.split(' ')[0] == "Intersport") {
+                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace('Intersport', '&#x26F0;&#xFE0F;');
+                    // } else if(response.extractedText.split(' ')[0] == `I'm`) {
+                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace(`I'm`, '&#x2753;');
+                    // } else if(response.extractedText.split(' ')[0] == `RECOMMENDED`) {
+                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace(`RECOMMENDED`, '&#x26F0;&#xFE0F;');
+                    // } else if(response.extractedText.split(' ')[0] == `Arriving`) {
+                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace(`Arriving`, '&#x1F17F');
+                    // } else if(response.extractedText.split(' ')[0] == `Mürren`) {
+                    //     document.getElementById('extractedText').innerHTML = response.extractedText.replace(`Mürren`, '&#x26F0;&#xFE0F;');
+                    // } else {
+                    //     document.getElementById('extractedText').innerHTML = response.extractedText;
+                    // }
 
-                    displayText = document.getElementById('extractedText').innerHTML;
+                    let extractedText = document.getElementById('extractedText').innerHTML;
+
+                    // Split the extracted text into an array of strings
+                    let textArray = extractedText.split(' ');
+
+                    // Insert the provider variable between elements 1 and 2
+                    textArray.splice(3, 0, `(${provider})`);
+
+                    // Join the array elements back into a single string
+                    extractedText = textArray.join(' ');
+
+                    displayText = extractedText;
+
+                    console.log("innerHTML text: ", document.getElementById('extractedText').innerHTML);
+                    console.log("Extracted text: ", extractedText);
+                    console.log("Display text: ", displayText);
 
                     // Copy the final text to the clipboard
                     navigator.clipboard.writeText(displayText)
+
                     .then(() => {
                         // Show a quick alert that the text has been copied to clipboard
                         const alertMessage = document.createElement('div');
