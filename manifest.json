@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Input Intel",
+    "name": "Page Intel",
     "version": "1.0",
     "description": "Extract text from the currently active tab.",
     "permissions": [
