@@ -107,67 +107,60 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         if (searchStrings.length > 0) {
-            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                chrome.tabs.sendMessage(tabs[0].id, {action: 'extractText', searchStrings: searchStrings, numWords: numWords}, function(response) {
+            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                chrome.tabs.sendMessage(tabs[0].id, { action: 'extractText', searchStrings: searchStrings, numWords: numWords }, function (response) {
                     let displayText = '';
-
-                    console.log("split", response.extractedText.split(' '));
-
-                    switch(provider) {
+        
+                    // Modify extracted text based on provider
+                    switch (provider) {
                         case 'VIA':
-                            document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x26F0;&#xFE0F;');
-                        break;
+                            displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
+                            break;
                         case 'TS':
-                            if(response.extractedText.split(' ')[0] == 'RECOMMENDED') {
-                                document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x26F0;&#xFE0F;');
-                            } else if(response.extractedText.split(' ')[0] == 'Arriving') {
-                                document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x1F17F;');
+                            if (response.extractedText.split(' ')[0] == 'RECOMMENDED') {
+                                displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
+                            } else if (response.extractedText.split(' ')[0] == 'Arriving') {
+                                displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u1F17F');
                             } else {
-                                document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x2753;');
+                                displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u2753');
                             }
-                        break;
+                            break;
                         case 'GYG':
-                            document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x26F0;&#xFE0F;');
-                        break;
+                            displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
+                            break;
                     }
-
-                    let extractedText = document.getElementById('extractedText').innerHTML;
-
-                    // Split the extracted text into an array of strings
-                    let textArray = extractedText.split(' ');
-
+        
                     // Insert the provider variable between elements 1 and 2
+                    let textArray = displayText.split(' ');
                     textArray.splice(3, 0, `(${provider})`);
-
-                    // Join the array elements back into a single string
                     displayText = textArray.join(' ');
-
-                    console.log("innerHTML text: ", document.getElementById('extractedText').innerHTML);
-                    console.log("Extracted text: ", extractedText);
+        
                     console.log("Display text: ", displayText);
-
+        
                     // Copy the final text to the clipboard
                     navigator.clipboard.writeText(displayText)
-
-                    .then(() => {
-                        // Show a quick alert that the text has been copied to clipboard
-                        const alertMessage = document.createElement('div');
-                        alertMessage.innerHTML = 'Text copied to clipboard!';
-                        alertMessage.classList.add('alert');
-                        document.body.appendChild(alertMessage);
-
-                        setTimeout(() => {
-                            alertMessage.style.display = 'none';
-                        }, 3000);
-                    })
-                    .catch(err => {
-                        console.error('Error copying text to clipboard:', err);
-                    });
-
+                        .then(() => {
+                            // Show a quick alert that the text has been copied to clipboard
+                            const alertMessage = document.createElement('div');
+                            alertMessage.innerHTML = 'Text copied to clipboard!';
+                            alertMessage.classList.add('alert');
+                            document.body.appendChild(alertMessage);
+        
+                            setTimeout(() => {
+                                alertMessage.style.display = 'none';
+                            }, 3000);
+                        })
+                        .catch(err => {
+                            console.error('Error copying text to clipboard:', err);
+                        });
+        
+                    // Update the extracted text on the page
+                    document.getElementById('extractedText').innerHTML = displayText;
                 });
             });
         } else {
             document.getElementById('extractedText').textContent = 'Please enter valid search strings and number of words.';
         }
+        
     });
 });
