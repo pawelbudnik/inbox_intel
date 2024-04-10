@@ -142,13 +142,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         .then(() => {
                             // Show a quick alert that the text has been copied to clipboard
                             const alertMessage = document.createElement('div');
+                            // TODO: add location details in alert
                             alertMessage.innerHTML = 'Text copied to clipboard!';
                             alertMessage.classList.add('alert');
                             document.body.appendChild(alertMessage);
         
-                            setTimeout(() => {
+                            // Add event listener to remove alert on click away
+                            document.body.addEventListener('click', function () {
                                 alertMessage.style.display = 'none';
-                            }, 3000);
+                            }, { once: true }); // Remove event listener after one click
                         })
                         .catch(err => {
                             console.error('Error copying text to clipboard:', err);
@@ -161,6 +163,5 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             document.getElementById('extractedText').textContent = 'Please enter valid search strings and number of words.';
         }
-        
     });
 });
