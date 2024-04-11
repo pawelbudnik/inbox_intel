@@ -107,61 +107,60 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         if (searchStrings.length > 0) {
-            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-                chrome.tabs.sendMessage(tabs[0].id, { action: 'extractText', searchStrings: searchStrings, numWords: numWords }, function (response) {
-                    let displayText = '';
-        
-                    // Modify extracted text based on provider
-                    switch (provider) {
-                        case 'VIA':
-                            displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
-                            break;
-                        case 'TS':
-                            if (response.extractedText.split(' ')[0] == 'RECOMMENDED:') {
-                                displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
-                            } else if (response.extractedText.split(' ')[0] == 'Arriving') {
-                                displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u1F17F');
-                            } else {
-                                displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u2753');
-                            }
-                            break;
-                        case 'GYG':
-                            displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
-                            break;
-                    }
-        
-                    // Insert the provider variable between elements 1 and 2
-                    let textArray = displayText.split(' ');
-                    textArray.splice(3, 0, `(${provider})`);
-                    displayText = textArray.join(' ');
-        
-                    console.log("Display text: ", displayText);
-        
-                    // Copy the final text to the clipboard
-                    navigator.clipboard.writeText(displayText)
-                        .then(() => {
-                            // Show a quick alert that the text has been copied to clipboard
-                            const alertMessage = document.createElement('div');
-                            // TODO: add location details in alert
-                            alertMessage.innerHTML = 'Text copied to clipboard!';
-                            alertMessage.classList.add('alert');
-                            document.body.appendChild(alertMessage);
-        
-                            // Add event listener to remove alert on click away
-                            document.body.addEventListener('click', function () {
-                                alertMessage.style.display = 'none';
-                            }, { once: true }); // Remove event listener after one click
-                        })
-                        .catch(err => {
-                            console.error('Error copying text to clipboard:', err);
-                        });
-        
-                    // Update the extracted text on the page
-                    document.getElementById('extractedText').innerHTML = displayText;
-                });
-            });
-        } else {
-            document.getElementById('extractedText').textContent = 'Please enter valid search strings and number of words.';
-        }
+          chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+              chrome.tabs.sendMessage(tabs[0].id, { action: 'extractText', searchStrings: searchStrings, numWords: numWords }, function (response) {
+                  let displayText = '';
+      
+                  // Modify extracted text based on provider
+                  switch (provider) {
+                      case 'VIA':
+                          displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
+                          break;
+                      case 'TS':
+                          if (response.extractedText.split(' ')[0] == 'RECOMMENDED:') {
+                              displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
+                          } else if (response.extractedText.split(' ')[0] == 'Arriving') {
+                              displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\uD83C\uDD7F');
+                          } else {
+                              displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u2753');
+                          }
+                          break;
+                      case 'GYG':
+                          displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
+                          break;
+                  }
+      
+                  // Insert the provider variable between elements 1 and 2
+                  let textArray = displayText.split(' ');
+                  textArray.splice(3, 0, `(${provider})`);
+                  displayText = textArray.join(' ');
+      
+                  console.log("Display text: ", displayText);
+      
+                  // Copy the final text to the clipboard
+                  navigator.clipboard.writeText(displayText)
+                      .then(() => {
+                          // Show a quick alert that the text has been copied to clipboard
+                          const alertMessage = document.createElement('div');
+                          alertMessage.innerHTML = 'Text copied to clipboard!';
+                          alertMessage.classList.add('alert');
+                          document.body.appendChild(alertMessage);
+      
+                          // Add event listener to remove alert on click away
+                          document.body.addEventListener('click', function () {
+                              alertMessage.style.display = 'none';
+                          }, { once: true }); // Remove event listener after one click
+                      })
+                      .catch(err => {
+                          console.error('Error copying text to clipboard:', err);
+                      });
+      
+                  // Update the extracted text on the page
+                  document.getElementById('extractedText').innerHTML = displayText;
+              });
+          });
+      } else {
+          document.getElementById('extractedText').textContent = 'Please enter valid search strings and number of words.';
+      }
     });
 });
