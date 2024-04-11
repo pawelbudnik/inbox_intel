@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
                             break;
                         case 'TS':
-                            if (response.extractedText.split(' ')[0] == 'RECOMMENDED') {
+                            if (response.extractedText.split(' ')[0] == 'RECOMMENDED:') {
                                 displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
                             } else if (response.extractedText.split(' ')[0] == 'Arriving') {
                                 displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u1F17F');
