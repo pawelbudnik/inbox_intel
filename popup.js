@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x26F0;&#xFE0F;');
                         break;
                         case 'TS':
-                            if(response.extractedText.split(' ')[0] == 'RECOMMENDED') {
+                            if(response.extractedText.split(' ')[0] == 'RECOMMENDED:') {
                                 document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x26F0;&#xFE0F;');
                             } else if(response.extractedText.split(' ')[0] == 'Arriving') {
                                 document.getElementById('extractedText').innerHTML = response.extractedText.replace(response.extractedText.split(' ')[0], '&#x1F17F;');
