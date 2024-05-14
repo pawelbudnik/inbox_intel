@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
         provider = providerValue; // Set the provider value
         switch(provider) {
             case 'VIA':
-                document.getElementById('searchString1').value = 'Meeting Point:';
+                document.getElementById('searchString1').value = 'Travelers:';
                 document.getElementById('numWords1').value = 1; 
                 addSearchString();
-                document.getElementById('searchString2').value = 'Travelers:';
+                document.getElementById('searchString2').value = 'Meeting Point:';
                 document.getElementById('numWords2').value = 1;
                 addSearchString();
                 document.getElementById('searchString3').value = 'Lead Traveler Name:';
@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('numWords4').value = 1;
                 break;
             case 'TS':
-                document.getElementById('searchString1').value = 'Meeting Point:';
+                document.getElementById('searchString1').value = 'this link.';
                 document.getElementById('numWords1').value = 1; 
                 addSearchString();
-                document.getElementById('searchString2').value = 'this link.';
+                document.getElementById('searchString2').value = 'Meeting Point:';
                 document.getElementById('numWords2').value = 1;
                 addSearchString();
                 document.getElementById('searchString3').value = 'First name:';
@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('numWords5').value = 1;
                 break;
             case 'GYG':
-                document.getElementById('searchString1').value = 'Option:';
+                document.getElementById('searchString1').value = 'Number of participants:';
                 document.getElementById('numWords1').value = 1; 
                 addSearchString();
-                document.getElementById('searchString2').value = 'Number of participants:';
+                document.getElementById('searchString2').value = 'Option:';
                 document.getElementById('numWords2').value = 1;
                 addSearchString();
                 document.getElementById('searchString3').value = 'Main customer:';
@@ -114,19 +114,20 @@ document.addEventListener('DOMContentLoaded', function() {
                   // Modify extracted text based on provider
                   switch (provider) {
                       case 'VIA':
-                          displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
+                          displayText = response.extractedText.replace(response.extractedText.split(' ')[2], '\u26F0\uFE0F');
                           break;
                       case 'TS':
-                          if (response.extractedText.split(' ')[0] == 'RECOMMENDED:') {
-                              displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
-                          } else if (response.extractedText.split(' ')[0] == 'Arriving') {
-                              displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\uD83C\uDD7F');
+                          if (response.extractedText.split(' ')[2] == 'RECOMMENDED:') {
+                              displayText = response.extractedText.replace(response.extractedText.split(' ')[2], '\u26F0\uFE0F');
+                          } else if (response.extractedText.split(' ')[2] == 'Arriving') {
+                              displayText = response.extractedText.replace(response.extractedText.split(' ')[2], '\uD83C\uDD7F');
                           } else {
-                              displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u2753');
+                              displayText = response.extractedText.replace(response.extractedText.split(' ')[2], '\u2753');
                           }
                           break;
                       case 'GYG':
-                          displayText = response.extractedText.replace(response.extractedText.split(' ')[0], '\u26F0\uFE0F');
+                          console.log("Split", response.extractedText.split(' ')[2]);
+                          displayText = response.extractedText.replace(response.extractedText.split(' ')[2], '\u26F0\uFE0F');
                           break;
                   }
       
