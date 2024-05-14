@@ -1,3 +1,5 @@
+// TODO: Make sure viator checks for the youth and children when looking for the number of passengers
+
 let provider; // Define provider as a global variable
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -126,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
                           }
                           break;
                       case 'GYG':
-                          console.log("Split", response.extractedText.split(' ')[2]);
                           displayText = response.extractedText.replace(response.extractedText.split(' ')[2], '\u26F0\uFE0F');
                           break;
                   }
@@ -135,8 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
                   let textArray = displayText.split(' ');
                   textArray.splice(3, 0, `(${provider})`);
                   displayText = textArray.join(' ');
-      
-                  console.log("Display text: ", displayText);
       
                   // Copy the final text to the clipboard
                   navigator.clipboard.writeText(displayText)
